@@ -4,18 +4,21 @@
 #include <QMainWindow>
 #include <QPrinter>
 
-class QAction;
 class QLabel;
-class QMenu;
 class QScrollArea;
 class QScrollBar;
+
+namespace Ui {
+    class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow();
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
 
 private slots:
     void open();
@@ -33,41 +36,18 @@ private slots:
     void about();
 
 private:
-    QImage image;
-
     void mirror(bool hori);
-
     void createActions();
     void createMenus();
     void updateActions();
     void scaleImage(double factor);
     void adjustScrollBar(QScrollBar *scrollBar, double factor);
+
+    QImage image;
+    Ui::MainWindow *ui;
     QLabel *imageLabel;
     QScrollArea *scrollArea;
     double scaleFactor;
-
-    QAction *openAct;
-    QAction *printAct;
-    QAction *exitAct;
-
-    QAction *zoomInAct;
-    QAction *zoomOutAct;
-    QAction *normalSizeAct;
-    QAction *fitToWindowAct;
-
-    QAction *greyScaleAct;
-    QAction *negativeAct;
-    QAction *gradientAct;
-    QAction *hMirrorAct;
-    QAction *vMirrorAct;
-
-    QAction *aboutAct;
-    QAction *aboutQtAct;
-
-    QMenu *fileMenu;
-    QMenu *viewMenu;
-    QMenu *filtersMenu;
-    QMenu *helpMenu;
 };
 
 #endif
