@@ -48,8 +48,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::about()
 {
+    #ifdef VIEWER
     QMessageBox::about(this, tr("About QuTe Viewer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.1.4 23-11-2010"));
+            tr("<b>QuTe Viewer</b><br/>Version: 0.2.0 23-11-2010"));
+    #else
+    QMessageBox::about(this, tr("About QuTe Drawer"),
+            tr("<b>QuTe Viewer</b><br/>Version: 0.2.0 23-11-2010"));
+    #endif
 }
 
 #ifdef VIEWER

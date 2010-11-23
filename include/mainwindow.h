@@ -4,7 +4,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QPrinter>
+#ifndef VIEWER
+#include "include/renderarea.h"
+#include <QActionGroup>
+#endif
 
 class QLabel;
 class QScrollArea;

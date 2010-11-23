@@ -13,7 +13,7 @@ HEADERS += include/mainwindow.h
 SOURCES += app/main.cpp app/mainwindow.cpp
 
 FORMS += \
-    app/mainwindow.ui
+    app/viewerwindow.ui
 
 TRANSLATIONS = lang/qute_viewer_pl.ts
 CODECFORTR = UTF-8

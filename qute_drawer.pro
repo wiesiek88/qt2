@@ -12,7 +12,7 @@ HEADERS += include/mainwindow.h include/renderarea.h
 SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp
 
 FORMS += \
-    app/mainwindow.ui
+    app/drawerwindow.ui
 
 TRANSLATIONS = lang/qute_drawer_pl.ts
 CODECFORTR = UTF-8
