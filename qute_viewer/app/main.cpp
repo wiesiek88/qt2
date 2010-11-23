@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QString locale = QLocale::system().name();
 
     QTranslator translator;
-    translator.load(QString("qute_drawer_") + locale);
+    translator.load(QString("qute_viewer_") + locale);
     app.installTranslator(&translator);
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));
 
