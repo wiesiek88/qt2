@@ -14,6 +14,6 @@ SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp
 FORMS += \
     app/mainwindow.ui
 
-TRANSLATIONS = qute_drawer_pl.ts
+TRANSLATIONS = lang/qute_drawer_pl.ts
 CODECFORTR = UTF-8
 
