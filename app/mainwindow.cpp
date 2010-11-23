@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget * parent):
     setCentralWidget(scrollArea);
 
     createActions();
-    //createMenus();
 
     setWindowTitle(tr("QuTe Viewer"));
 
@@ -36,7 +35,7 @@ MainWindow::MainWindow(QWidget * parent):
 
     createActions();
 
-    setWindowTitle(tr("QuTe Viewer"));
+    setWindowTitle(tr("QuTe Drawer"));
     resize(500, 400);
 #endif
 }
@@ -53,7 +52,7 @@ void MainWindow::about()
             tr("<b>QuTe Viewer</b><br/>Version: 0.2.0 23-11-2010"));
     #else
     QMessageBox::about(this, tr("About QuTe Drawer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.2.0 23-11-2010"));
+            tr("<b>QuTe Drawer</b><br/>Version: 0.2.0 23-11-2010"));
     #endif
 }
 

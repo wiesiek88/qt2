@@ -7,6 +7,7 @@ TARGET =
 DEPENDPATH += . app include src
 INCLUDEPATH += . include
 
+
 # Input
 HEADERS += include/mainwindow.h include/renderarea.h
 SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp
