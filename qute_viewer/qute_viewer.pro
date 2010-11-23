@@ -13,3 +13,6 @@ SOURCES += app/main.cpp app/mainwindow.cpp
 
 FORMS += \
     app/mainwindow.ui
+
+TRANSLATIONS = qute_drawer_pl.ts
+CODECFORTR = UTF-8
