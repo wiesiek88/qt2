@@ -6,6 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . app include
 INCLUDEPATH += . include
+DEFINES += VIEWER
 
 # Input
 HEADERS += include/mainwindow.h

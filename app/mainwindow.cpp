@@ -2,13 +2,18 @@
 #include <QPainter>
 
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+#ifdef VIEWER
+#include "ui_viewerwindow.h"
+#else
+#include "ui_drawerwindow.h"
+#endif
 
 MainWindow::MainWindow(QWidget * parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+#ifdef VIEWER
     imageLabel = new QLabel;
     imageLabel->setBackgroundRole(QPalette::Base);
     imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -25,12 +30,66 @@ MainWindow::MainWindow(QWidget * parent):
     setWindowTitle(tr("QuTe Viewer"));
 
     resize(500, 400);
+#else
+    renderArea = new RenderArea();\
+    setCentralWidget(renderArea);
+
+    createActions();
+
+    setWindowTitle(tr("QuTe Viewer"));
+    resize(500, 400);
+#endif
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::about()
+{
+    QMessageBox::about(this, tr("About QuTe Viewer"),
+            tr("<b>QuTe Viewer</b><br/>Version: 0.1.4 23-11-2010"));
+}
+
+#ifdef VIEWER
+void MainWindow::createActions()
+{
+    connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
+    connect(ui->exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+    ui->zoomInAct->setEnabled(false);
+    connect(ui->zoomInAct, SIGNAL(triggered()), this, SLOT(zoomIn()));
+
+    ui->zoomOutAct->setEnabled(false);
+    connect(ui->zoomOutAct, SIGNAL(triggered()), this, SLOT(zoomOut()));
+
+    ui->normalSizeAct->setEnabled(false);
+    connect(ui->normalSizeAct, SIGNAL(triggered()), this, SLOT(normalSize()));
+
+    ui->fitToWindowAct->setEnabled(false);
+    ui->fitToWindowAct->setCheckable(true);
+    connect(ui->fitToWindowAct, SIGNAL(triggered()), this, SLOT(fitToWindow()));
+
+    ui->greyscaleAct->setEnabled(false);
+    connect(ui->greyscaleAct, SIGNAL(triggered()), this, SLOT(greyScale()));
+
+    ui->negativeAct->setEnabled(false);
+    connect(ui->negativeAct, SIGNAL(triggered()), this, SLOT(negative()));
+
+    ui->gradientAct->setEnabled(false);
+    connect(ui->gradientAct, SIGNAL(triggered()), this, SLOT(gradient()));
+
+    ui->hMirrorAct->setEnabled(false);
+    connect(ui->hMirrorAct, SIGNAL(triggered()), this, SLOT(hMirror()));
+
+    ui->vMirrorAct->setEnabled(false);
+    connect(ui->vMirrorAct, SIGNAL(triggered()), this, SLOT(vMirror()));
+
+    connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+    connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+}
+
 
 void MainWindow::open()
 {
@@ -144,49 +203,6 @@ void MainWindow::mirror(bool hori)
     imageLabel->setPixmap(QPixmap::fromImage(image));
 }
 
-void MainWindow::about()
-{
-    QMessageBox::about(this, tr("About QuTe Viewer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.1.4 23-11-2010"));
-}
-
-void MainWindow::createActions()
-{
-    connect(ui->openAct, SIGNAL(triggered()), this, SLOT(open()));
-    connect(ui->exitAct, SIGNAL(triggered()), this, SLOT(close()));
-
-    ui->zoomInAct->setEnabled(false);
-    connect(ui->zoomInAct, SIGNAL(triggered()), this, SLOT(zoomIn()));
-
-    ui->zoomOutAct->setEnabled(false);
-    connect(ui->zoomOutAct, SIGNAL(triggered()), this, SLOT(zoomOut()));
-
-    ui->normalSizeAct->setEnabled(false);
-    connect(ui->normalSizeAct, SIGNAL(triggered()), this, SLOT(normalSize()));
-
-    ui->fitToWindowAct->setEnabled(false);
-    ui->fitToWindowAct->setCheckable(true);
-    connect(ui->fitToWindowAct, SIGNAL(triggered()), this, SLOT(fitToWindow()));
-
-    ui->greyscaleAct->setEnabled(false);
-    connect(ui->greyscaleAct, SIGNAL(triggered()), this, SLOT(greyScale()));
-
-    ui->negativeAct->setEnabled(false);
-    connect(ui->negativeAct, SIGNAL(triggered()), this, SLOT(negative()));
-
-    ui->gradientAct->setEnabled(false);
-    connect(ui->gradientAct, SIGNAL(triggered()), this, SLOT(gradient()));
-
-    ui->hMirrorAct->setEnabled(false);
-    connect(ui->hMirrorAct, SIGNAL(triggered()), this, SLOT(hMirror()));
-
-    ui->vMirrorAct->setEnabled(false);
-    connect(ui->vMirrorAct, SIGNAL(triggered()), this, SLOT(vMirror()));
-
-    connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
-    connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-}
-
 void MainWindow::updateActions()
 {
     ui->zoomInAct->setEnabled(!ui->fitToWindowAct->isChecked());
@@ -217,3 +233,36 @@ void MainWindow::adjustScrollBar(QScrollBar *scrollBar, double factor)
     scrollBar->setValue(int(factor * scrollBar->value()
                             + ((factor - 1) * scrollBar->pageStep()/2)));
 }
+#else
+void MainWindow::createActions()
+{
+    connect(ui->exitAct, SIGNAL(triggered()), this, SLOT(close()));
+
+    drawGroup = new QActionGroup(this);
+    ui->lineAct->setCheckable(true);
+    ui->lineAct->setData(RenderArea::Line);
+    ui->rectAct->setCheckable(true);
+    ui->rectAct->setData(RenderArea::Rect);
+    ui->roundRectAct->setCheckable(true);
+    ui->roundRectAct->setData(RenderArea::RoundRect);
+    ui->ellipseAct->setCheckable(true);
+    ui->ellipseAct->setData(RenderArea::Ellipse);
+    
+    drawGroup->addAction(ui->lineAct);
+    drawGroup->addAction(ui->rectAct);
+    drawGroup->addAction(ui->roundRectAct);
+    drawGroup->addAction(ui->ellipseAct);
+    ui->lineAct->setChecked(true);
+    connect(drawGroup, SIGNAL(triggered(QAction*)), this, SLOT(changePen()));
+    
+    connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
+    connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
+}
+
+void MainWindow::changePen()
+{
+    RenderArea::Shape shape = RenderArea::Shape(drawGroup->checkedAction()->data().toInt());
+    renderArea->setShape(shape);
+}
+#endif /* VIEWER */
