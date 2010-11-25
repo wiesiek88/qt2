@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . app include
 INCLUDEPATH += . include
-DEFINES += VIEWER DOCS_PATH=\\\"$${_PRO_FILE_PWD_}/help/qute_viewer.qhc\\\" VERSION=0.2.1
+DEFINES += VIEWER
 CONFIG += help
 
 # Input
@@ -18,6 +18,11 @@ FORMS += \
 
 TRANSLATIONS = lang/qute_viewer_pl.ts
 CODECFORTR = UTF-8
+
+RCC_DIR = "../build/build-viewer"
+UI_DIR = "../build/build-viewer"
+MOC_DIR = "../build/build-viewer"
+OBJECTS_DIR = "../build/build-viewer"
 
 CONFIG(debug, debug|release) {
     DESTDIR = ../build/debug

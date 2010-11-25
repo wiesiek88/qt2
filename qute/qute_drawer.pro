@@ -6,11 +6,11 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . app include src
 INCLUDEPATH += . include
-
+CONFIG += help
 
 # Input
-HEADERS += include/mainwindow.h include/renderarea.h
-SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp
+HEADERS += include/mainwindow.h include/renderarea.h include/helpbrowser.h
+SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp src/helpbrowser.cpp
 
 FORMS += \
     app/drawerwindow.ui
@@ -18,3 +18,13 @@ FORMS += \
 TRANSLATIONS = lang/qute_drawer_pl.ts
 CODECFORTR = UTF-8
 
+RCC_DIR = "../build/build-drawer"
+UI_DIR = "../build/build-drawer"
+MOC_DIR = "../build/build-drawer"
+OBJECTS_DIR = "../build/build-drawer"
+
+CONFIG(debug, debug|release) {
+    DESTDIR = ../build/debug
+} else {
+    DESTDIR = ../build/release
+}

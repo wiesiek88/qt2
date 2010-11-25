@@ -27,39 +27,35 @@ MainWindow::MainWindow(QWidget * parent):
     scrollArea->setBackgroundRole(QPalette::Dark);
     scrollArea->setWidget(imageLabel);
     setCentralWidget(scrollArea);
-
-    createActions();
     setWindowTitle(tr("QuTe Viewer"));
-    resize(500, 400);
+    
+    // set viewer.qhc as Qt Help Collection file
+    QHelpEngine *helpEngine = new QHelpEngine("help/viewer.qhc", this);
     #else
-    renderArea = new RenderArea();\
+    renderArea = new RenderArea();
     setCentralWidget(renderArea);
-
-    createActions();
     setWindowTitle(tr("QuTe Drawer"));
-    resize(500, 400);
-    #endif
+    
+    // set drawer.qhc as Qt Help Collection file
+    QHelpEngine *helpEngine = new QHelpEngine("help/drawer.qhc", this);
+    #endif /* VIEWER */
 
     // help window
-    QHelpEngine *helpEngine = new QHelpEngine("viewer.qhc", this);
     helpEngine->setupData();
 
     QSplitter *helpPanel = new QSplitter(Qt::Horizontal);
     HelpBrowser *helpBrowser = new HelpBrowser(helpEngine);
 
-//    helpPanel->addWidget((QWidget*)helpEngine->contentWidget());
-//    helpPanel->addWidget(helpBrowser);
-
     helpPanel->insertWidget(0, helpEngine->contentWidget());
     helpPanel->insertWidget(1, helpBrowser);
-    //helpBrowser
     helpPanel->setStretchFactor(1, 2);
     ui->helpWindow->setWidget(helpPanel);
-
-
-
+    
     connect(helpEngine->contentWidget(), SIGNAL(linkActivated(const QUrl &)),
         helpBrowser, SLOT(setSource(const QUrl &)));
+    createActions();
+    
+    resize(500, 400);
 }
 
 MainWindow::~MainWindow()

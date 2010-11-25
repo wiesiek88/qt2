@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>qute.drawer.1.0</namespace>
+    <virtualFolder>drawer</virtualFolder>
+    <filterSection>
+        <filterAttribute>myapp</filterAttribute>
+        <filterAttribute>1.0</filterAttribute>
+        <toc>
+            <section title="QuTe Drawer Help" ref="viewer.html">
+                <section title="Chapter 1" ref="drawer.html#chapter-1"/>
+                <section title="Chapter 2" ref="drawer.html#chapter-2"/>
+                <section title="Chapter 3" ref="drawer.html#chapter-3"/>
+            </section>
+        </toc>
+        <keywords>
+            <keyword name="foo" id="MyApplication::foo" ref="viewer.html#foo"/>
+            <keyword name="bar" ref="doc.html#bar"/>
+            <keyword id="MyApplication::foobar" ref="viewer.html#foobar"/>
+        </keywords>
+        <files>
+            <file>*.html</file>
+        </files>
+    </filterSection>
+</QtHelpProject>
