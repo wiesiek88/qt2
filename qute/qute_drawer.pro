@@ -15,7 +15,7 @@ SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp src/helpbrowser.cp
 FORMS += \
     app/drawerwindow.ui
 
-TRANSLATIONS = lang/qute_drawer_pl.ts
+TRANSLATIONS = ../lang/qute_drawer_pl.ts
 CODECFORTR = UTF-8
 
 RCC_DIR = "../build/build-drawer"

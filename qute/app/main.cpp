@@ -12,9 +12,9 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
     #ifdef VIEWER
-    translator.load(QString("qute_viewer_") + locale);
+    translator.load(QString("lang/qute_viewer_") + locale);
     #else
-    translator.load(QString("qute_drawer_") + locale);
+    translator.load(QString("lang/qute_drawer_") + locale);
     #endif
     app.installTranslator(&translator);
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf8"));

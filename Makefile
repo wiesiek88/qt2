@@ -3,7 +3,7 @@ MAKEFILE=Makefile
 VIEWER_PRO=qute_viewer.pro
 DRAWER_PRO=qute_drawer.pro
 
-all: app doc
+all: app doc lang
 
 app: viewer drawer
 	rm qute/Makefile
@@ -16,3 +16,6 @@ drawer:
 	
 doc:
 	cd help && $(MAKE) -Bsif $(MAKEFILE)
+	
+lang:
+	cd lang && $(MAKE) -Bsif $(MAKEFILE)

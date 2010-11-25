@@ -16,7 +16,7 @@ SOURCES += app/main.cpp app/mainwindow.cpp src/helpbrowser.cpp
 FORMS += \
     app/viewerwindow.ui
 
-TRANSLATIONS = lang/qute_viewer_pl.ts
+TRANSLATIONS = ../lang/qute_viewer_pl.ts
 CODECFORTR = UTF-8
 
 RCC_DIR = "../build/build-viewer"
