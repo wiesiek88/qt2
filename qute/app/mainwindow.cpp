@@ -1,6 +1,6 @@
 #include <QtGui>
 #include <QPainter>
-#include <QtHelp/QHelpEngine>
+#include <QtHelp>
 #include "helpbrowser.h"
 
 #include "mainwindow.h"
@@ -41,16 +41,25 @@ MainWindow::MainWindow(QWidget * parent):
     #endif
 
     // help window
-    QHelpEngine *helpEngine = new QHelpEngine(DOCS_PATH, this);
+    QHelpEngine *helpEngine = new QHelpEngine("viewer.qhc", this);
     helpEngine->setupData();
 
     QSplitter *helpPanel = new QSplitter(Qt::Horizontal);
     HelpBrowser *helpBrowser = new HelpBrowser(helpEngine);
 
-    helpPanel->addWidget((QWidget*)helpEngine->contentWidget());
-    helpPanel->addWidget(helpBrowser);
-    helpPanel->setStretchFactor(1, 1);
+//    helpPanel->addWidget((QWidget*)helpEngine->contentWidget());
+//    helpPanel->addWidget(helpBrowser);
+
+    helpPanel->insertWidget(0, helpEngine->contentWidget());
+    helpPanel->insertWidget(1, helpBrowser);
+    //helpBrowser
+    helpPanel->setStretchFactor(1, 2);
     ui->helpWindow->setWidget(helpPanel);
+
+
+
+    connect(helpEngine->contentWidget(), SIGNAL(linkActivated(const QUrl &)),
+        helpBrowser, SLOT(setSource(const QUrl &)));
 }
 
 MainWindow::~MainWindow()
@@ -62,10 +71,10 @@ void MainWindow::about()
 {
     #ifdef VIEWER
     QMessageBox::about(this, tr("About QuTe Viewer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.2.0 23-11-2010"));
+            tr("<b>QuTe Viewer</b><br/>Version: 0.2.1 25-11-2010"));
     #else
     QMessageBox::about(this, tr("About QuTe Drawer"),
-            tr("<b>QuTe Drawer</b><br/>Version: 0.2.0 23-11-2010"));
+            tr("<b>QuTe Drawer</b><br/>Version: 0.2.1 25-11-2010"));
     #endif
 }
 
