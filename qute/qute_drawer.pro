@@ -9,8 +9,8 @@ INCLUDEPATH += . include
 CONFIG += help
 
 # Input
-HEADERS += include/mainwindow.h include/drawerwindow.h include/renderarea.h include/helpbrowser.h
-SOURCES += app/main.cpp app/mainwindow.cpp app/drawerwindow.cpp src/renderarea.cpp src/helpbrowser.cpp
+HEADERS += include/mainwindow.h include/renderarea.h include/helpbrowser.h
+SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp src/helpbrowser.cpp
 
 FORMS += \
     app/drawerwindow.ui
