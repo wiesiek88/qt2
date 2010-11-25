@@ -56,6 +56,8 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <addaction name="helpAct"/>
+    <addaction name="separator"/>
     <addaction name="aboutAct"/>
     <addaction name="aboutQtAct"/>
    </widget>
@@ -65,6 +67,15 @@
    <addaction name="menu_Help"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="helpWindow">
+   <property name="windowTitle">
+    <string>Help</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents"/>
+  </widget>
   <action name="openAct">
    <property name="text">
     <string>&amp;Open</string>
@@ -146,6 +157,11 @@
   <action name="aboutQtAct">
    <property name="text">
     <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="helpAct">
+   <property name="text">
+    <string>Show help</string>
    </property>
   </action>
  </widget>

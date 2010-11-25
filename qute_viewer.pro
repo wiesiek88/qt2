@@ -6,11 +6,12 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . app include
 INCLUDEPATH += . include
-DEFINES += VIEWER
+DEFINES += VIEWER DOCS_PATH=\\\"$${_PRO_FILE_PWD_}/help/qute_viewer.qhc\\\"
+CONFIG += help
 
 # Input
-HEADERS += include/mainwindow.h
-SOURCES += app/main.cpp app/mainwindow.cpp
+HEADERS += include/mainwindow.h include/helpbrowser.h
+SOURCES += app/main.cpp app/mainwindow.cpp src/helpbrowser.cpp
 
 FORMS += \
     app/viewerwindow.ui

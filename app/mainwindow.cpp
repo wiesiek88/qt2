@@ -1,5 +1,7 @@
 #include <QtGui>
 #include <QPainter>
+#include <QtHelp/QHelpEngine>
+#include "helpbrowser.h"
 
 #include "mainwindow.h"
 #ifdef VIEWER
@@ -13,7 +15,9 @@ MainWindow::MainWindow(QWidget * parent):
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-#ifdef VIEWER
+    ui->helpWindow->setVisible(false);
+
+    #ifdef VIEWER
     imageLabel = new QLabel;
     imageLabel->setBackgroundRole(QPalette::Base);
     imageLabel->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
@@ -25,19 +29,28 @@ MainWindow::MainWindow(QWidget * parent):
     setCentralWidget(scrollArea);
 
     createActions();
-
     setWindowTitle(tr("QuTe Viewer"));
-
     resize(500, 400);
-#else
+    #else
     renderArea = new RenderArea();\
     setCentralWidget(renderArea);
 
     createActions();
-
     setWindowTitle(tr("QuTe Drawer"));
     resize(500, 400);
-#endif
+    #endif
+
+    // help window
+    QHelpEngine *helpEngine = new QHelpEngine(DOCS_PATH, this);
+    helpEngine->setupData();
+
+    QSplitter *helpPanel = new QSplitter(Qt::Horizontal);
+    HelpBrowser *helpBrowser = new HelpBrowser(helpEngine);
+
+    helpPanel->addWidget((QWidget*)helpEngine->contentWidget());
+    helpPanel->addWidget(helpBrowser);
+    helpPanel->setStretchFactor(1, 1);
+    ui->helpWindow->setWidget(helpPanel);
 }
 
 MainWindow::~MainWindow()
@@ -92,6 +105,10 @@ void MainWindow::createActions()
 
     connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
+    connect(ui->helpAct, SIGNAL(triggered()), ui->helpWindow, SLOT(show()));
+    connect(ui->helpWindow, SIGNAL(visibilityChanged(bool)),
+            ui->helpAct, SLOT(setDisabled(bool)));
 }
 
 
@@ -262,6 +279,9 @@ void MainWindow::createActions()
     connect(ui->aboutAct, SIGNAL(triggered()), this, SLOT(about()));
     connect(ui->aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
+    connect(ui->helpAct, SIGNAL(triggered()), ui->helpWindow, SLOT(show()));
+    connect(ui->helpWindow, SIGNAL(visibilityChanged(bool)),
+            ui->helpAct, SLOT(setDisabled(bool)));
 }
 
 void MainWindow::changePen()
