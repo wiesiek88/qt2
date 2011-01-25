@@ -9,11 +9,14 @@ INCLUDEPATH += . include
 CONFIG += help
 
 # Input
-HEADERS += include/mainwindow.h include/renderarea.h include/helpbrowser.h
-SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp src/helpbrowser.cpp
+HEADERS += include/mainwindow.h include/renderarea.h include/helpbrowser.h \
+    include/aboutbox.h
+SOURCES += app/main.cpp app/mainwindow.cpp src/renderarea.cpp src/helpbrowser.cpp \
+    src/aboutbox.cpp
 
 FORMS += \
-    app/drawerwindow.ui
+    app/drawerwindow.ui \
+    app/aboutbox.ui
 
 TRANSLATIONS = ../lang/qute_drawer_pl.ts
 CODECFORTR = UTF-8

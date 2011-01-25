@@ -10,11 +10,14 @@ DEFINES += VIEWER
 CONFIG += help
 
 # Input
-HEADERS += include/mainwindow.h include/helpbrowser.h
-SOURCES += app/main.cpp app/mainwindow.cpp src/helpbrowser.cpp
+HEADERS += include/mainwindow.h include/helpbrowser.h \
+    include/aboutbox.h
+SOURCES += app/main.cpp app/mainwindow.cpp src/helpbrowser.cpp \
+    src/aboutbox.cpp
 
 FORMS += \
-    app/viewerwindow.ui
+    app/viewerwindow.ui \
+    app/aboutbox.ui
 
 TRANSLATIONS = ../lang/qute_viewer_pl.ts
 CODECFORTR = UTF-8

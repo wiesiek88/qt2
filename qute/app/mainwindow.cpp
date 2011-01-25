@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QtHelp>
 #include "helpbrowser.h"
+#include "aboutbox.h"
 
 #include "mainwindow.h"
 #ifdef VIEWER
@@ -66,12 +67,15 @@ MainWindow::~MainWindow()
 void MainWindow::about()
 {
     #ifdef VIEWER
-    QMessageBox::about(this, tr("About QuTe Viewer"),
-            tr("<b>QuTe Viewer</b><br/>Version: 0.2.1 25-11-2010"));
+    QString title = tr("QuTe Viewer");
+    QString version = tr("Version: 0.4.0 25-01-2011");
     #else
-    QMessageBox::about(this, tr("About QuTe Drawer"),
-            tr("<b>QuTe Drawer</b><br/>Version: 0.2.1 25-11-2010"));
+    QString title = tr("QuTe Drawer");
+    QString version = tr("Version: 0.4.0 25-01-2011");
     #endif
+    AboutBox * about = new AboutBox(title,version);
+    about->exec();
+    delete about;
 }
 
 #ifdef VIEWER
