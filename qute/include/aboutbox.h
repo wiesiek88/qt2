@@ -2,6 +2,9 @@
 #define ABOUTBOX_H
 
 #include <QDialog>
+#include <QTimer>
+#include <QStateMachine>
+#include <QPropertyAnimation>
 
 namespace Ui {
     class AboutBox;
@@ -17,6 +20,10 @@ public:
 
 private:
     Ui::AboutBox *ui;
+    QPropertyAnimation * animation;
+    QTimer * timer;
+    QStateMachine * machine;
+    void showEvent(QShowEvent * event);
 };
 
 #endif // ABOUTBOX_H
